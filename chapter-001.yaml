@@ -1,0 +1,167 @@
+chapter: 1
+title: "The Rust Ecosystem: Toolchain, Cargo, and Crates"
+oxidation_target: 4
+oxidation_tier: "Raw Iron"
+complete: true
+
+prerequisites: []
+
+recall_from: []
+
+objectives:
+  - "Understand the components of the Rust toolchain (rustc, rustup, cargo)"
+  - "Create, build, and run a Rust project using Cargo"
+  - "Navigate the crate ecosystem (crates.io, docs.rs)"
+  - "Understand Rust editions and why they exist"
+
+topics:
+  - name: "The Rust Toolchain"
+    key_points:
+      - "rustc is the Rust compiler - it transforms .rs files into executables or libraries"
+      - "rustup is the toolchain manager - it installs and updates Rust versions"
+      - "Multiple toolchains can coexist: stable, beta, nightly"
+      - "Stable releases every 6 weeks; nightly builds daily with experimental features"
+      - "rustup manages components: rustfmt (formatting), clippy (linting), rust-analyzer (IDE support)"
+    rust_specific:
+      - "Rust guarantees backward compatibility within editions - code that compiles today will compile tomorrow"
+      - "The stability guarantee enables fearless upgrades - update your toolchain without breaking your project"
+    common_pitfalls:
+      - mistake: "Using nightly for production code"
+        why_wrong: "Nightly features are unstable and may change or be removed"
+        correct_approach: "Use stable for production; nightly only for specific experimental features you actively need"
+      - mistake: "Ignoring rustup update"
+        why_wrong: "Missing compiler improvements, bug fixes, and better error messages"
+        correct_approach: "Run 'rustup update' regularly, especially when encountering unfamiliar errors"
+    cargo_integration: "Cargo is installed automatically with rustup"
+
+  - name: "Cargo: Build System and Package Manager"
+    key_points:
+      - "Cargo handles building, testing, documentation, dependency management, and publishing"
+      - "'cargo new project_name' creates a new project with standard directory structure"
+      - "'cargo build' compiles the project; 'cargo run' builds and executes"
+      - "'cargo build --release' enables optimizations for production builds"
+      - "'cargo test' runs all tests; 'cargo doc --open' generates and opens documentation"
+      - "'cargo check' verifies code compiles without producing binaries - faster iteration"
+      - "Cargo.toml is the manifest file: project metadata, dependencies, build configuration"
+      - "Cargo.lock records exact dependency versions for reproducible builds"
+    rust_specific:
+      - "Cargo is not optional - it is the standard way to work with Rust"
+      - "The Cargo.toml format (TOML) is designed for human readability"
+      - "Cargo workspaces allow multiple related packages in one repository"
+    common_pitfalls:
+      - mistake: "Committing Cargo.lock for libraries"
+        why_wrong: "Libraries should allow consumers to resolve their own compatible versions"
+        correct_approach: "Commit Cargo.lock for binaries (reproducible builds); gitignore it for libraries"
+      - mistake: "Running 'cargo build' repeatedly during development"
+        why_wrong: "Full builds are slower than necessary for checking correctness"
+        correct_approach: "Use 'cargo check' for fast feedback; 'cargo build' when you need to run"
+      - mistake: "Ignoring compiler warnings"
+        why_wrong: "Warnings often indicate bugs or non-idiomatic code; they may become errors in future editions"
+        correct_approach: "Treat warnings as errors during development; address them immediately"
+    cargo_integration: "This entire topic is Cargo"
+
+  - name: "Project Structure"
+    key_points:
+      - "src/main.rs is the entry point for binary crates"
+      - "src/lib.rs is the entry point for library crates"
+      - "A package can contain both a library and multiple binaries"
+      - "Additional binaries go in src/bin/ directory"
+      - "Tests can live in src/ files (unit tests) or tests/ directory (integration tests)"
+      - "Examples go in examples/ directory; benchmarks in benches/"
+      - "The target/ directory contains build artifacts - always gitignore it"
+    rust_specific:
+      - "Crate is Rust's compilation unit - one crate produces one library or one binary"
+      - "Package is a Cargo concept - one or more crates with a Cargo.toml"
+      - "The distinction matters: dependencies are between crates, but you manage packages"
+    common_pitfalls:
+      - mistake: "Putting library code in main.rs for a project that should be both library and binary"
+        why_wrong: "Code in main.rs cannot be imported by other crates"
+        correct_approach: "Put shared code in lib.rs; have main.rs be a thin wrapper that uses the library"
+      - mistake: "Confusing crates and packages"
+        why_wrong: "Leads to confusion when discussing dependencies and project structure"
+        correct_approach: "Package = Cargo.toml + source; Crate = compilation unit (lib.rs or main.rs)"
+    cargo_integration: "Cargo enforces and understands this structure automatically"
+
+  - name: "The Crate Ecosystem"
+    key_points:
+      - "crates.io is the official package registry - over 100,000 crates available"
+      - "docs.rs automatically generates documentation for every crate on crates.io"
+      - "Add dependencies in Cargo.toml under [dependencies] section"
+      - "Version requirements use semver: '^1.2.3' (compatible), '~1.2.3' (patch only), '=1.2.3' (exact)"
+      - "Default '^' means compatible versions - '^1.2.3' allows 1.2.4, 1.3.0, but not 2.0.0"
+      - "'cargo add crate_name' adds dependencies from command line"
+      - "'cargo update' updates dependencies within version constraints"
+    rust_specific:
+      - "Rust's semver is strict: breaking changes require major version bump"
+      - "The orphan rule affects which traits you can implement for which types - relevant when using external crates"
+      - "Feature flags allow optional functionality without bloating default builds"
+    common_pitfalls:
+      - mistake: "Using '*' for version requirements"
+        why_wrong: "Allows any version including breaking changes; builds become non-reproducible"
+        correct_approach: "Specify minimum version with '^' (default) - explicit about compatibility expectations"
+      - mistake: "Adding dependencies without checking maintenance status"
+        why_wrong: "Abandoned crates may have unfixed security issues or compatibility problems"
+        correct_approach: "Check crates.io for recent updates, GitHub for issue activity, and docs.rs for documentation quality"
+      - mistake: "Not reading the docs before adding a crate"
+        why_wrong: "May miss simpler solutions in std, or choose wrong crate for the use case"
+        correct_approach: "Always read docs.rs documentation and check if std provides the functionality"
+    cargo_integration: "Cargo fetch, build, and manage all dependencies automatically"
+
+  - name: "Rust Editions"
+    key_points:
+      - "Editions are opt-in language evolution: 2015, 2018, 2021, 2024"
+      - "Specified in Cargo.toml: edition = '2021'"
+      - "New projects default to the latest stable edition"
+      - "Editions allow breaking changes without breaking existing code"
+      - "Different crates in the same project can use different editions - they interoperate"
+      - "'cargo fix --edition' helps migrate code to newer editions"
+    rust_specific:
+      - "Editions change surface syntax and defaults, not the underlying language"
+      - "All editions compile to the same intermediate representation"
+      - "The 2018 edition introduced the module system changes; 2021 refined closures and IntoIterator"
+    common_pitfalls:
+      - mistake: "Staying on old editions indefinitely"
+        why_wrong: "Missing ergonomic improvements and new default behaviors"
+        correct_approach: "Upgrade editions when starting new projects; migrate existing projects during natural maintenance"
+      - mistake: "Assuming edition differences are like Python 2 vs 3"
+        why_wrong: "Rust editions are much more compatible; interoperation is guaranteed"
+        correct_approach: "Think of editions as configuration, not language forks"
+    cargo_integration: "Edition is specified in Cargo.toml; cargo fix assists migration"
+
+checklist:
+  - item: "Can create a new project with 'cargo new' and explain the generated files"
+    verified: true
+  - item: "Can explain the difference between 'cargo check', 'cargo build', and 'cargo run'"
+    verified: true
+  - item: "Can add a dependency to Cargo.toml and explain version requirement syntax"
+    verified: true
+  - item: "Can explain the difference between a crate and a package"
+    verified: true
+  - item: "Can explain what Rust editions are and why they exist"
+    verified: true
+  - item: "Can navigate docs.rs to find documentation for any crate"
+    verified: true
+
+next_lesson_unlocks:
+  - "Variables and mutability - understanding let bindings"
+  - "Writing actual Rust code with confidence in the toolchain"
+
+teacher_notes: |
+  This lesson is intentionally tool-focused. Students need confidence with Cargo before
+  writing Rust code - fighting both the language AND the build system creates unnecessary
+  friction.
+
+  Key realization to foster: Cargo is not a necessary evil like some build systems.
+  It is genuinely pleasant to use and handles complexity that would otherwise require
+  multiple tools (make, cmake, pip, npm, etc.).
+
+  Have the student actually run the commands. Create a throwaway project, add a dependency,
+  explore the generated docs. Muscle memory with Cargo pays dividends throughout the course.
+
+  The crate vs package distinction trips up many learners. Use concrete examples:
+  - "serde" is a crate (the thing you 'use')
+  - The serde repository is a package (contains Cargo.toml)
+  - The serde package actually contains multiple crates (serde, serde_derive)
+
+  Don't linger too long here - this is scaffolding for the real learning ahead.
+  One session maximum, then move to actual Rust code.

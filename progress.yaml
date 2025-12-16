@@ -1,0 +1,27 @@
+course_started: 2025-12-16
+last_updated: 2025-12-16
+current_chapter: 1
+oxidation_level: 4
+oxidation_tier: "Raw Iron"
+
+mastered_concepts:
+  - "Rust toolchain components (rustc, rustup, cargo)"
+  - "Cargo commands and workflows"
+  - "Project structure and crate vs package distinction"
+  - "Crate ecosystem navigation (crates.io, docs.rs)"
+  - "Rust editions and interoperability"
+
+struggle_points:
+  - "Cargo.lock commitment rules for libraries vs binaries (resolved)"
+  - "Counting crates in a package (resolved)"
+
+notes: |
+  Course initialized. Student begins at Raw Iron tier.
+  First lesson covers the Rust ecosystem: toolchain, Cargo, and crates.io.
+  No prior Rust experience assumed, but general programming competence expected.
+
+  Chapter 1 completed 2025-12-16:
+  - Strong understanding of toolchain and Cargo workflows
+  - Initially confused about Cargo.lock practices, but grasped it after re-teaching
+  - Good intuition about compiler warnings being important
+  - Ready to proceed to actual Rust code
