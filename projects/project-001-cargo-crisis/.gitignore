@@ -1,0 +1,18 @@
+# Build artifacts - ALWAYS ignore this
+target/
+
+# ISSUE: What about Cargo.lock? Should it be here?
+# This is a library primarily, so think about whether downstream
+# consumers should use your locked versions or resolve their own.
+#
+# Make a decision and either add Cargo.lock here or remove this comment.
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

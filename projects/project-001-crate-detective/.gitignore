@@ -1,0 +1,15 @@
+# Build artifacts
+target/
+
+# This is a binary project, so Cargo.lock SHOULD be committed
+# for reproducible builds. Don't gitignore it.
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

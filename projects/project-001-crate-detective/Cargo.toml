@@ -1,0 +1,14 @@
+[package]
+name = "webprobe"
+version = "0.1.0"
+edition = "2021"
+description = "A CLI tool to fetch and parse JSON from URLs"
+
+# TODO: Add your chosen dependencies below.
+# Remember:
+# - Use proper version specifications (not "*")
+# - Consider which features you need
+# - Think about whether you need async or blocking HTTP
+
+[dependencies]
+# Add your dependencies here after researching your options
