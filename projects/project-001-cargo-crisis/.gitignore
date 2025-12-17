@@ -16,3 +16,6 @@ target/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Don't commit the lock file, this is primarily a library
+Cargo.lock

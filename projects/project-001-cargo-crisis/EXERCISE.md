@@ -8,11 +8,11 @@ The good news: this is a Cargo problem, not a Rust problem. The code itself is f
 
 ## Learning Objectives
 
-- [ ] Demonstrate mastery of Cargo.toml configuration and dependency management
-- [ ] Correctly structure a project that is both a library AND a binary
-- [ ] Understand when to commit Cargo.lock (hint: this is a library)
-- [ ] Use `cargo check`, `cargo build`, `cargo test`, and `cargo doc` effectively
-- [ ] Navigate and fix common project structure mistakes
+- [x] Demonstrate mastery of Cargo.toml configuration and dependency management
+- [x] Correctly structure a project that is both a library AND a binary
+- [x] Understand when to commit Cargo.lock (hint: this is a library)
+- [x] Use `cargo check`, `cargo build`, `cargo test`, and `cargo doc` effectively
+- [x] Navigate and fix common project structure mistakes
 
 ## The Situation
 
@@ -27,38 +27,38 @@ Someone refactored the project structure and broke... everything. The Cargo.toml
 
 ### Phase 1: Triage
 
-- [ ] Run `cargo check` and understand ALL the errors (don't just fix blindly)
-- [ ] Identify what's wrong with the Cargo.toml
-- [ ] Identify what's wrong with the project structure
-- [ ] Document the issues you find (add comments to ISSUES_FOUND.md)
+- [x] Run `cargo check` and understand ALL the errors (don't just fix blindly)
+- [x] Identify what's wrong with the Cargo.toml
+- [x] Identify what's wrong with the project structure
+- [x] Document the issues you find (add comments to ISSUES_FOUND.md)
 
 ### Phase 2: Fix the Configuration
 
-- [ ] Fix the Cargo.toml to properly declare this as both a library and binary package
-- [ ] Ensure the edition is set to 2021 (someone downgraded it for "compatibility")
-- [ ] Fix the dependency declarations (check for version specification issues)
-- [ ] Ensure the package metadata is correct (name, version, description)
+- [x] Fix the Cargo.toml to properly declare this as both a library and binary package
+- [x] Ensure the edition is set to 2021 (someone downgraded it for "compatibility")
+- [x] Fix the dependency declarations (check for version specification issues)
+- [x] Ensure the package metadata is correct (name, version, description)
 
 ### Phase 3: Fix the Structure
 
-- [ ] Move files to their correct locations per Cargo conventions
-- [ ] Ensure `src/lib.rs` is the library entry point
-- [ ] Ensure `src/main.rs` OR `src/bin/` contains the binaries (your choice, but be consistent)
-- [ ] Make sure the library code is importable by the binaries
+- [x] Move files to their correct locations per Cargo conventions
+- [x] Ensure `src/lib.rs` is the library entry point
+- [x] Ensure `src/main.rs` OR `src/bin/` contains the binaries (your choice, but be consistent)
+- [x] Make sure the library code is importable by the binaries
 
 ### Phase 4: Verify the Fix
 
-- [ ] `cargo check` passes with NO warnings
-- [ ] `cargo build` produces the library AND both binaries
-- [ ] `cargo test` runs and passes
-- [ ] `cargo doc --open` generates documentation without errors
-- [ ] Verify you can run both binaries: `cargo run --bin logforge-cli` and `cargo run --bin logforge-validate`
+- [x] `cargo check` passes with NO warnings
+- [x] `cargo build` produces the library AND both binaries
+- [x] `cargo test` runs and passes
+- [x] `cargo doc --open` generates documentation without errors
+- [x] Verify you can run both binaries: `cargo run --bin logforge-cli` and `cargo run --bin logforge-validate`
 
 ### Phase 5: Clean Up
 
-- [ ] Decide: should Cargo.lock be committed for this project? Add or remove from .gitignore accordingly
-- [ ] Add a brief explanation to ISSUES_FOUND.md about your Cargo.lock decision
-- [ ] Ensure `target/` is in .gitignore (it better be)
+- [x] Decide: should Cargo.lock be committed for this project? Add or remove from .gitignore accordingly
+- [x] Add a brief explanation to ISSUES_FOUND.md about your Cargo.lock decision
+- [x] Ensure `target/` is in .gitignore (it better be)
 
 ## Success Criteria
 

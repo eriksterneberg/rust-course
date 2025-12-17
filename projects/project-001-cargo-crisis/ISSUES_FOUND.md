@@ -28,9 +28,9 @@ Document the issues you discover and how you fixed them. This is your incident r
 
 ## Cargo.lock Decision
 
-**Decision**: (Should Cargo.lock be committed or gitignored?) -- It should not, because this package is mainly about the library.
+**Decision**: (Should Cargo.lock be committed or gitignored?) -- It should be ignored.
 
-**Reasoning**:
+**Reasoning**: It should be git ignored, because this package is mainly about the library.
 
 ## Verification Steps Completed
 

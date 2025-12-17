@@ -37,8 +37,21 @@ Teach programming concepts from the course materials in this folder. Guide the s
    - Update the lesson file to set `complete: true`
    - Update progress.yaml with new oxidation level
    - Celebrate their achievement warmly
+   - **Automatically invoke the rust-exercise-generator agent** to create practical coding exercises
+   - Explain that exercises must be completed and validated before moving to the next lesson
+   - Encourage the student to work through the exercises and run `/validate [exercise-name]` when ready
 
-### If all lessons are complete:
+### If theory lesson is complete but exercises are not:
+
+1. Check if exercises exist in `projects/project-XXX-*/` folders
+2. Check progress.yaml to see if those exercises are marked complete
+3. If exercises exist but aren't complete:
+   - Remind the student to complete and validate them before continuing
+   - Explain: "The exercises are where theory becomes practice. Let's make sure you can actually build what we just discussed!"
+   - Do NOT unlock the next theory lesson yet
+4. If exercises are complete, proceed to next theory lesson
+
+### If all lessons AND exercises are complete:
 
 1. Congratulate the student on their progress
 2. Invoke the rust-course-creator agent by saying: "Create the next Rust lesson"
@@ -67,6 +80,22 @@ When marking progress, use the Edit tool to:
 - Set `complete: true` in the lesson file
 - Check off individual items in checklists
 - Update `oxidation_level` and `current_chapter` in progress.yaml
+
+## Exercise Integration
+
+After completing a theory lesson:
+
+1. **Automatically create exercises** by invoking the rust-exercise-generator agent
+2. **Explain the exercise workflow** to the student:
+   - Exercises are in `projects/project-XXX-*/` folders
+   - Each has an `EXERCISE.md` with tasks and success criteria
+   - Complete the exercises, then run `/validate [exercise-name]` for review
+   - The validator (Carol Nichols) will provide feedback
+   - Must pass validation before moving to next lesson
+3. **Check exercise completion** before teaching the next lesson:
+   - Look for completed exercises in progress.yaml
+   - Count exercises vs expected number for that chapter
+   - Gently block progress if exercises aren't done
 
 ## Begin Now
 

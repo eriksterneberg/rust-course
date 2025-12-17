@@ -6,11 +6,22 @@ This folder contains a progressive Rust curriculum designed by the Course Creato
 
 ### How to Use This Course
 
-1. Lessons are in `chapter-XXX.yaml` files, sequenced numerically
+1. **Theory lessons** are in `chapter-XXX.yaml` files, sequenced numerically
 2. Each lesson contains objectives, topics, and a completion checklist
-3. Track progress in `progress.yaml`
-4. Mark lessons complete ONLY when ALL checklist items are verified
-5. A separate Code Verifier agent handles practical exercises - this curriculum provides the conceptual foundation
+3. **Practical exercises** are generated in `projects/project-XXX-*/` folders after completing each theory lesson
+4. Track progress in `progress.yaml`
+5. Mark lessons complete ONLY when ALL checklist items are verified
+6. Mark exercises complete ONLY when validated by the Exercise Validator agent
+
+### The Learning Flow
+
+1. **Learn** → Uncle Bob (teaching agent) delivers theory lesson via `/teach`
+2. **Quiz** → Must score >90% to demonstrate understanding
+3. **Practice** → Bryan Cantrill (exercise generator) creates coding challenges
+4. **Validate** → Carol Nichols (validator agent) reviews your code via `/validate`
+5. **Advance** → Next lesson unlocks only after exercises pass validation
+
+This ensures you can both **understand** Rust concepts AND **apply** them in real code.
 
 ### Teaching Philosophy
 
@@ -43,12 +54,22 @@ Memory research shows that retrieval practice - actively recalling information -
 
 ### Completion Criteria
 
-A lesson is marked complete when the student can:
+**Theory Lesson** is marked complete when the student can:
 
 1. **Articulate** each concept without reference materials
 2. **Identify** the concept when encountered in unfamiliar code
 3. **Predict** compiler behavior for edge cases and variations
 4. **Explain** why Rust makes the design choices it does for each concept
+
+**Exercise** is marked complete when the solution:
+
+1. **Compiles** without errors or warnings
+2. **Passes** all provided tests
+3. **Demonstrates** understanding of the lesson's core concepts
+4. **Follows** Rust conventions and idioms
+5. **Receives** approval from the Exercise Validator agent
+
+**Chapter** is fully complete only when BOTH theory lesson AND all exercises pass validation.
 
 Do not rush. A lesson marked complete prematurely will create gaps that compound in later chapters. The oxidation process cannot be accelerated - the metal must absorb the heat thoroughly.
 
@@ -56,11 +77,25 @@ Do not rush. A lesson marked complete prematurely will create gaps that compound
 
 ```
 rust-course/
-  INSTRUCTIONS.md      # This file
-  progress.yaml        # Overall progress tracking
-  chapter-001.yaml     # First lesson
-  chapter-002.yaml     # Second lesson (created when 001 is complete)
+  INSTRUCTIONS.md              # This file
+  progress.yaml                # Overall progress tracking
+  chapter-001.yaml             # First theory lesson
+  chapter-002.yaml             # Second theory lesson (created when 001 is complete)
   ...
+  projects/
+    project-001-cargo-crisis/  # Practical exercise for chapter 1
+      EXERCISE.md              # Exercise description and checklist
+      Cargo.toml               # Rust project configuration
+      src/                     # Exercise code
+    project-001-crate-detective/  # Additional exercise for chapter 1
+      ...
+  .claude/
+    commands/
+      teach.md                 # Teaching command (Uncle Bob)
+    agents/
+      rust-course-creator.md   # Curriculum generator (Graydon Hoare)
+      rust-exercise-generator.md  # Exercise creator (Bryan Cantrill)
+      rust-exercise-validator.md  # Code reviewer (Carol Nichols)
 ```
 
 ### For AI Teacher Agents
@@ -71,9 +106,17 @@ When delivering this curriculum:
 2. Check `recall_from` and quiz those concepts first
 3. Present `key_points` as facts to be understood, not lectures
 4. Use `common_pitfalls` to anticipate and address confusion
-5. Defer to the Code Verifier agent for all practical exercises
-6. Update `progress.yaml` after each session
-7. Mark checklist items `verified: true` only when criteria above are met
+5. After quiz completion, invoke the **rust-exercise-generator** agent to create practical exercises
+6. Before teaching the next lesson, verify exercises are complete in `progress.yaml`
+7. Update `progress.yaml` after each session
+8. Mark checklist items `verified: true` only when criteria above are met
+
+### Agent Roles
+
+- **Uncle Bob** (Teaching): Delivers theory lessons, conducts quizzes, manages learning progression
+- **Graydon Hoare** (Course Creator): Designs curriculum, creates new chapter files
+- **Bryan Cantrill** (Exercise Generator): Creates practical coding challenges based on completed lessons
+- **Carol Nichols** (Exercise Validator): Reviews student code, provides feedback, marks exercises complete
 
 ### The Rust Philosophy
 
