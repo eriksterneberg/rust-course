@@ -10,12 +10,12 @@ Your job: investigate, evaluate, and make informed decisions about dependencies.
 
 ## Learning Objectives
 
-- [ ] Navigate crates.io to find and evaluate crates
-- [ ] Use docs.rs to understand crate APIs before adding dependencies
-- [ ] Evaluate crate health (maintenance, downloads, recent updates)
-- [ ] Understand version specification syntax and make appropriate choices
-- [ ] Use `cargo add` and manual Cargo.toml editing effectively
-- [ ] Understand feature flags and when to use them
+- [x] Navigate crates.io to find and evaluate crates
+- [x] Use docs.rs to understand crate APIs before adding dependencies
+- [x] Evaluate crate health (maintenance, downloads, recent updates)
+- [x] Understand version specification syntax and make appropriate choices
+- [x] Use `cargo add` and manual Cargo.toml editing effectively
+- [x] Understand feature flags and when to use them
 
 ## The Mission
 
@@ -33,51 +33,51 @@ For each category below, research the options and document your findings.
 
 ### JSON Parsing
 
-- [ ] Search crates.io for JSON crates
-- [ ] Compare at least `serde_json` and `json` crates
-- [ ] Check docs.rs for API documentation quality
-- [ ] Record: downloads, last update, GitHub stars/issues
-- [ ] Document your choice and reasoning in DECISIONS.md
+- [x] Search crates.io for JSON crates
+- [x] Compare at least `serde_json` and `json` crates
+- [x] Check docs.rs for API documentation quality
+- [x] Record: downloads, last update, GitHub stars/issues
+- [x] Document your choice and reasoning in DECISIONS.md
 
 ### HTTP Client
 
-- [ ] Search crates.io for HTTP client crates
-- [ ] Compare at least `reqwest`, `ureq`, and `attohttpc`
-- [ ] Note which ones are async vs blocking (this matters for a simple CLI!)
-- [ ] Check for TLS/SSL support and what features are required
-- [ ] Document your choice and reasoning in DECISIONS.md
+- [x] Search crates.io for HTTP client crates
+- [x] Compare at least `reqwest`, `ureq`, and `attohttpc`
+- [x] Note which ones are async vs blocking (this matters for a simple CLI!)
+- [x] Check for TLS/SSL support and what features are required
+- [x] Document your choice and reasoning in DECISIONS.md
 
 ### Command-Line Parsing
 
-- [ ] Search crates.io for argument parsing crates
-- [ ] Compare at least `clap`, `structopt`, and `argh`
-- [ ] Note: `structopt` is now part of `clap` - what does that tell you?
-- [ ] Consider: do you need a full framework or would `std::env::args` suffice?
-- [ ] Document your choice and reasoning in DECISIONS.md
+- [x] Search crates.io for argument parsing crates
+- [x] Compare at least `clap`, `structopt`, and `argh`
+- [x] Note: `structopt` is now part of `clap` - what does that tell you?
+- [x] Consider: do you need a full framework or would `std::env::args` suffice?
+- [x] Document your choice and reasoning in DECISIONS.md
 
 ## Phase 2: Setup
 
-- [ ] Create the project using `cargo new webprobe`
-- [ ] Add your chosen dependencies to Cargo.toml
-- [ ] Use appropriate version specifications (NOT wildcards!)
-- [ ] If a crate has features, decide which ones you need
-- [ ] Run `cargo build` to verify everything resolves correctly
+- [x] Create the project using `cargo new webprobe`
+- [x] Add your chosen dependencies to Cargo.toml
+- [x] Use appropriate version specifications (NOT wildcards!)
+- [x] If a crate has features, decide which ones you need
+- [x] Run `cargo build` to verify everything resolves correctly
 
 ## Phase 3: Implementation
 
 Create a minimal working implementation:
 
-- [ ] Parse a URL from command-line arguments
-- [ ] Make an HTTP GET request (use httpbin.org/json as a test endpoint)
-- [ ] Parse the JSON response
-- [ ] Print at least one field from the response
-- [ ] Handle errors gracefully (no panics on bad input)
+- [x] Parse a URL from command-line arguments
+- [x] Make an HTTP GET request (use httpbin.org/json as a test endpoint)
+- [x] Parse the JSON response
+- [x] Print at least one field from the response
+- [x] Handle errors gracefully (no panics on bad input)
 
 ## Phase 4: Documentation
 
-- [ ] Run `cargo doc --open` to see the generated docs
-- [ ] Verify your dependencies' documentation is accessible
-- [ ] Add a doc comment to your main function explaining usage
+- [x] Run `cargo doc --open` to see the generated docs
+- [x] Verify your dependencies' documentation is accessible
+- [x] Add a doc comment to your main function explaining usage
 
 ## Success Criteria
 

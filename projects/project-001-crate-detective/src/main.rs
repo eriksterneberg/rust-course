@@ -12,35 +12,62 @@
 // Test endpoint: https://httpbin.org/json
 // This returns a predictable JSON structure you can parse.
 
+use clap::Parser;
+use reqwest::blocking;
+
 fn main() {
     // TODO: Parse command-line arguments
     // If no URL provided, print usage and exit gracefully
+    let args = Args::parse();                                                                             
 
-    // TODO: Make HTTP GET request
-    // Handle connection errors, timeouts, non-200 responses
+    println!("Sending request with url {}", args.url);
+
+    // Handle connection errors, timeouts
+    let response = match blocking::get(args.url) {
+        Ok(resp) => resp,
+        Err(e) => {
+            if e.is_timeout() {
+                eprint!("Error: Request timed out");
+            } else if e.is_connect() {
+                eprint!("Error: Unable to connect");
+            } else {
+                eprintln!("Error: {}", e);
+            }
+            std::process::exit(1);
+        }
+    };
+
+    // Handle non-200 responses
+    if !response.status().is_success() {
+        eprint!("Error: status was {}", response.status());
+        std::process::exit(1);
+    }
 
     // TODO: Parse JSON response
     // Handle malformed JSON gracefully
+    let json: serde_json::Value = match response.json() {
+        Ok(result) => result,
+        Err(e) => {
+                eprintln!("JSON Parse Error: {}", e);
+            std::process::exit(1);
+        }
+    };
 
     // TODO: Print formatted output
-    // Extract and display relevant fields
+    println!("Body = {:#?}", json);
 
-    println!("webprobe: not yet implemented");
-    println!("Usage: webprobe <URL>");
-    println!();
-    println!("Example: webprobe https://httpbin.org/json");
+    // Extract and display relevant fields
+    if let Some(slideshow) = json.get("slideshow") {                                                                     
+    if let Some(title) = slideshow.get("title") {                                                                    
+        println!("{}", title);                                                                                       
+    }                                                                                                                
+  } 
 }
 
-// Hint: You might want to create a struct to deserialize into
-// if using serde. For example:
-//
-// #[derive(Debug, serde::Deserialize)]
-// struct HttpBinResponse {
-//     slideshow: Slideshow,
-// }
-//
-// #[derive(Debug, serde::Deserialize)]
-// struct Slideshow {
-//     title: String,
-//     // ... other fields
-// }
+  /// A simple program to greet someone                                                                     
+  #[derive(Parser, Debug)]                                                                                  
+  #[command(name = "Webprobe Arguments")]                                                                              
+  #[command(about = "Arguments for the simple Webprobe CLI tool", long_about = None)]                                                    
+  struct Args {                                                                                             
+      url: String,                                                                                         
+  } 
